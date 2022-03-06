@@ -1,0 +1,835 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. filter &#8212; Pyspark tutorial</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. orderBy() and sort()" href="4_orderBy_sort.html" />
+    <link rel="prev" title="2. withColumn" href="2_withColumn.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Pyspark tutorial</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to your Jupyter Book
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  sparkbyexamples
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_rename_column.html">
+   1. Rename Column
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_withColumn.html">
+   2. withColumn
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   3. filter
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_orderBy_sort.html">
+   4. orderBy() and sort()
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_explode_array.html">
+   5. explode array and map columns to rows
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  cleaning_data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../cleaning_data/dataframe_details.html">
+   6. DataFrame details
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/sparkbyexamples/3_filter.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fsparkbyexamples/3_filter.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/sparkbyexamples/3_filter.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filter-with-one-column">
+   3.1. filter() with one column
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filter-with-multiple-column">
+   3.2. filter with multiple column
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#isin-list">
+   3.3.
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     .isin(List)
+    </span>
+   </code>
+   .
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#startswith-endwith-contains">
+   3.4. startswith(), endwith(), contains()
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#like-rlike">
+   3.5. like &amp; rlike
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#column-type-array">
+   3.6. 篩選 column type 是 array 的欄位
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nested-struct-column">
+   3.7. 篩選 nested struct column
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>filter</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filter-with-one-column">
+   3.1. filter() with one column
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#filter-with-multiple-column">
+   3.2. filter with multiple column
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#isin-list">
+   3.3.
+   <code class="docutils literal notranslate">
+    <span class="pre">
+     .isin(List)
+    </span>
+   </code>
+   .
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#startswith-endwith-contains">
+   3.4. startswith(), endwith(), contains()
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#like-rlike">
+   3.5. like &amp; rlike
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#column-type-array">
+   3.6. 篩選 column type 是 array 的欄位
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#nested-struct-column">
+   3.7. 篩選 nested struct column
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="filter">
+<h1><span class="section-number">3. </span>filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filter()</span></code> 就是 sql 裡的 <code class="docutils literal notranslate"><span class="pre">where()</span></code>，等等的語法，你要用 filter 或用 where 都是完全互通的 (我喜歡用 filter，比較有 dplyr 的親切感)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="kn">import</span> <span class="n">StructType</span><span class="p">,</span><span class="n">StructField</span> 
+<span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="kn">import</span> <span class="n">StringType</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">,</span> <span class="n">ArrayType</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="kn">import</span> <span class="nn">pyspark.sql.functions</span> <span class="k">as</span> <span class="nn">F</span>
+
+<span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s1">&#39;SparkByExamples.com&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">((</span><span class="s2">&quot;James&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;Smith&quot;</span><span class="p">),[</span><span class="s2">&quot;Java&quot;</span><span class="p">,</span><span class="s2">&quot;Scala&quot;</span><span class="p">,</span><span class="s2">&quot;C++&quot;</span><span class="p">],</span><span class="s2">&quot;OH&quot;</span><span class="p">,</span><span class="s2">&quot;M&quot;</span><span class="p">),</span>
+    <span class="p">((</span><span class="s2">&quot;Anna&quot;</span><span class="p">,</span><span class="s2">&quot;Rose&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">),[</span><span class="s2">&quot;Spark&quot;</span><span class="p">,</span><span class="s2">&quot;Java&quot;</span><span class="p">,</span><span class="s2">&quot;C++&quot;</span><span class="p">],</span><span class="s2">&quot;NY&quot;</span><span class="p">,</span><span class="s2">&quot;F&quot;</span><span class="p">),</span>
+    <span class="p">((</span><span class="s2">&quot;Julia&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;Williams&quot;</span><span class="p">),[</span><span class="s2">&quot;CSharp&quot;</span><span class="p">,</span><span class="s2">&quot;VB&quot;</span><span class="p">],</span><span class="s2">&quot;OH&quot;</span><span class="p">,</span><span class="s2">&quot;F&quot;</span><span class="p">),</span>
+    <span class="p">((</span><span class="s2">&quot;Maria&quot;</span><span class="p">,</span><span class="s2">&quot;Anne&quot;</span><span class="p">,</span><span class="s2">&quot;Jones&quot;</span><span class="p">),[</span><span class="s2">&quot;CSharp&quot;</span><span class="p">,</span><span class="s2">&quot;VB&quot;</span><span class="p">],</span><span class="s2">&quot;NY&quot;</span><span class="p">,</span><span class="s2">&quot;M&quot;</span><span class="p">),</span>
+    <span class="p">((</span><span class="s2">&quot;Jen&quot;</span><span class="p">,</span><span class="s2">&quot;Mary&quot;</span><span class="p">,</span><span class="s2">&quot;Brown&quot;</span><span class="p">),[</span><span class="s2">&quot;CSharp&quot;</span><span class="p">,</span><span class="s2">&quot;VB&quot;</span><span class="p">],</span><span class="s2">&quot;NY&quot;</span><span class="p">,</span><span class="s2">&quot;M&quot;</span><span class="p">),</span>
+    <span class="p">((</span><span class="s2">&quot;Mike&quot;</span><span class="p">,</span><span class="s2">&quot;Mary&quot;</span><span class="p">,</span><span class="s2">&quot;Williams&quot;</span><span class="p">),[</span><span class="s2">&quot;Python&quot;</span><span class="p">,</span><span class="s2">&quot;VB&quot;</span><span class="p">],</span><span class="s2">&quot;OH&quot;</span><span class="p">,</span><span class="s2">&quot;M&quot;</span><span class="p">)</span>
+ <span class="p">]</span>
+        
+<span class="n">schema</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">([</span>
+     <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">StructType</span><span class="p">([</span>
+        <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;firstname&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>
+        <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;middlename&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>
+         <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;lastname&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+     <span class="p">])),</span>
+     <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;languages&#39;</span><span class="p">,</span> <span class="n">ArrayType</span><span class="p">(</span><span class="n">StringType</span><span class="p">()),</span> <span class="kc">True</span><span class="p">),</span>
+     <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>
+     <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">)</span>
+ <span class="p">])</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">,</span> <span class="n">schema</span> <span class="o">=</span> <span class="n">schema</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root
+ |-- name: struct (nullable = true)
+ |    |-- firstname: string (nullable = true)
+ |    |-- middlename: string (nullable = true)
+ |    |-- lastname: string (nullable = true)
+ |-- languages: array (nullable = true)
+ |    |-- element: string (containsNull = true)
+ |-- state: string (nullable = true)
+ |-- gender: string (nullable = true)
+
++----------------------+------------------+-----+------+
+|name                  |languages         |state|gender|
++----------------------+------------------+-----+------+
+|{James, , Smith}      |[Java, Scala, C++]|OH   |M     |
+|{Anna, Rose, }        |[Spark, Java, C++]|NY   |F     |
+|{Julia, , Williams}   |[CSharp, VB]      |OH   |F     |
+|{Maria, Anne, Jones}  |[CSharp, VB]      |NY   |M     |
+|{Jen, Mary, Brown}    |[CSharp, VB]      |NY   |M     |
+|{Mike, Mary, Williams}|[Python, VB]      |OH   |M     |
++----------------------+------------------+-----+------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="filter-with-one-column">
+<h2><span class="section-number">3.1. </span>filter() with one column<a class="headerlink" href="#filter-with-one-column" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 篩選出 state 為 OH 的列</span>
+<span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;OH&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;OH&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;OH&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># 用 col() 也可標出欄位</span>
+<span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;state == &#39;OH&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># sql 寫法</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------------------+------------------+-----+------+
+|name                  |languages         |state|gender|
++----------------------+------------------+-----+------+
+|{James, , Smith}      |[Java, Scala, C++]|OH   |M     |
+|{Julia, , Williams}   |[CSharp, VB]      |OH   |F     |
+|{Mike, Mary, Williams}|[Python, VB]      |OH   |M     |
++----------------------+------------------+-----+------+
+
++----------------------+------------------+-----+------+
+|name                  |languages         |state|gender|
++----------------------+------------------+-----+------+
+|{James, , Smith}      |[Java, Scala, C++]|OH   |M     |
+|{Julia, , Williams}   |[CSharp, VB]      |OH   |F     |
+|{Mike, Mary, Williams}|[Python, VB]      |OH   |M     |
++----------------------+------------------+-----+------+
+
++----------------------+------------------+-----+------+
+|name                  |languages         |state|gender|
++----------------------+------------------+-----+------+
+|{James, , Smith}      |[Java, Scala, C++]|OH   |M     |
+|{Julia, , Williams}   |[CSharp, VB]      |OH   |F     |
+|{Mike, Mary, Williams}|[Python, VB]      |OH   |M     |
++----------------------+------------------+-----+------+
+
++----------------------+------------------+-----+------+
+|name                  |languages         |state|gender|
++----------------------+------------------+-----+------+
+|{James, , Smith}      |[Java, Scala, C++]|OH   |M     |
+|{Julia, , Williams}   |[CSharp, VB]      |OH   |F     |
+|{Mike, Mary, Williams}|[Python, VB]      |OH   |M     |
++----------------------+------------------+-----+------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 篩選出 state 不為 OH 的列</span>
+<span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">state</span> <span class="o">!=</span> <span class="s2">&quot;OH&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">~</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">state</span> <span class="o">==</span> <span class="s2">&quot;OH&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s2">&quot;state &lt;&gt; &#39;OH&#39;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># sql 寫法</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+--------------------+------------------+-----+------+
+|name                |languages         |state|gender|
++--------------------+------------------+-----+------+
+|{Anna, Rose, }      |[Spark, Java, C++]|NY   |F     |
+|{Maria, Anne, Jones}|[CSharp, VB]      |NY   |M     |
+|{Jen, Mary, Brown}  |[CSharp, VB]      |NY   |M     |
++--------------------+------------------+-----+------+
+
++--------------------+------------------+-----+------+
+|name                |languages         |state|gender|
++--------------------+------------------+-----+------+
+|{Anna, Rose, }      |[Spark, Java, C++]|NY   |F     |
+|{Maria, Anne, Jones}|[CSharp, VB]      |NY   |M     |
+|{Jen, Mary, Brown}  |[CSharp, VB]      |NY   |M     |
++--------------------+------------------+-----+------+
+
++--------------------+------------------+-----+------+
+|name                |languages         |state|gender|
++--------------------+------------------+-----+------+
+|{Anna, Rose, }      |[Spark, Java, C++]|NY   |F     |
+|{Maria, Anne, Jones}|[CSharp, VB]      |NY   |M     |
+|{Jen, Mary, Brown}  |[CSharp, VB]      |NY   |M     |
++--------------------+------------------+-----+------+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="filter-with-multiple-column">
+<h2><span class="section-number">3.2. </span>filter with multiple column<a class="headerlink" href="#filter-with-multiple-column" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">state</span>  <span class="o">==</span> <span class="s2">&quot;OH&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">gender</span>  <span class="o">==</span> <span class="s2">&quot;M&quot;</span><span class="p">)</span> <span class="p">)</span> \
+    <span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------------------+------------------+-----+------+
+|name                  |languages         |state|gender|
++----------------------+------------------+-----+------+
+|{James, , Smith}      |[Java, Scala, C++]|OH   |M     |
+|{Mike, Mary, Williams}|[Python, VB]      |OH   |M     |
++----------------------+------------------+-----+------+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="isin-list">
+<h2><span class="section-number">3.3. </span><code class="docutils literal notranslate"><span class="pre">.isin(List)</span></code>.<a class="headerlink" href="#isin-list" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Filter IS IN List values</span>
+<span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;OH&quot;</span><span class="p">,</span><span class="s2">&quot;CA&quot;</span><span class="p">,</span><span class="s2">&quot;DE&quot;</span><span class="p">]))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;OH&quot;</span><span class="p">,</span><span class="s2">&quot;CA&quot;</span><span class="p">,</span><span class="s2">&quot;DE&quot;</span><span class="p">]))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+--------------------+------------------+-----+------+
+|                name|         languages|state|gender|
++--------------------+------------------+-----+------+
+|    {James, , Smith}|[Java, Scala, C++]|   OH|     M|
+| {Julia, , Williams}|      [CSharp, VB]|   OH|     F|
+|{Mike, Mary, Will...|      [Python, VB]|   OH|     M|
++--------------------+------------------+-----+------+
+
++--------------------+------------------+-----+------+
+|                name|         languages|state|gender|
++--------------------+------------------+-----+------+
+|      {Anna, Rose, }|[Spark, Java, C++]|   NY|     F|
+|{Maria, Anne, Jones}|      [CSharp, VB]|   NY|     M|
+|  {Jen, Mary, Brown}|      [CSharp, VB]|   NY|     M|
++--------------------+------------------+-----+------+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="startswith-endwith-contains">
+<h2><span class="section-number">3.4. </span>startswith(), endwith(), contains()<a class="headerlink" href="#startswith-endwith-contains" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+--------------------+------------------+-----+------+
+|                name|         languages|state|gender|
++--------------------+------------------+-----+------+
+|      {Anna, Rose, }|[Spark, Java, C++]|   NY|     F|
+|{Maria, Anne, Jones}|      [CSharp, VB]|   NY|     M|
+|  {Jen, Mary, Brown}|      [CSharp, VB]|   NY|     M|
++--------------------+------------------+-----+------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+--------------------+------------------+-----+------+
+|                name|         languages|state|gender|
++--------------------+------------------+-----+------+
+|    {James, , Smith}|[Java, Scala, C++]|   OH|     M|
+| {Julia, , Williams}|      [CSharp, VB]|   OH|     F|
+|{Mike, Mary, Will...|      [Python, VB]|   OH|     M|
++--------------------+------------------+-----+------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;H&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+--------------------+------------------+-----+------+
+|                name|         languages|state|gender|
++--------------------+------------------+-----+------+
+|    {James, , Smith}|[Java, Scala, C++]|   OH|     M|
+| {Julia, , Williams}|      [CSharp, VB]|   OH|     F|
+|{Mike, Mary, Will...|      [Python, VB]|   OH|     M|
++--------------------+------------------+-----+------+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="like-rlike">
+<h2><span class="section-number">3.5. </span>like &amp; rlike<a class="headerlink" href="#like-rlike" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>先換個範例資料</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data2</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="s2">&quot;Michael Rose&quot;</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="s2">&quot;Robert Williams&quot;</span><span class="p">),</span>
+     <span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="s2">&quot;Rames Rose&quot;</span><span class="p">),(</span><span class="mi">5</span><span class="p">,</span><span class="s2">&quot;Rames rose&quot;</span><span class="p">)]</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">data2</span><span class="p">,</span> <span class="n">schema</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+---+---------------+
+| id|           name|
++---+---------------+
+|  2|   Michael Rose|
+|  3|Robert Williams|
+|  4|     Rames Rose|
+|  5|     Rames rose|
++---+---------------+
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>like 就是 sql 的那個 like，看例子：</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">like</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%r</span><span class="s2">ose%&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+---+----------+
+| id|      name|
++---+----------+
+|  5|Rames rose|
++---+----------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># rlike - SQL RLIKE pattern (LIKE with Regex)</span>
+<span class="c1">#This check case insensitive</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df2</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">rlike</span><span class="p">(</span><span class="s2">&quot;(?i)^*rose$&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+---+------------+
+| id|        name|
++---+------------+
+|  2|Michael Rose|
+|  4|  Rames Rose|
+|  5|  Rames rose|
++---+------------+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="column-type-array">
+<h2><span class="section-number">3.6. </span>篩選 column type 是 array 的欄位<a class="headerlink" href="#column-type-array" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>例如剛剛的例子， languages 就是一個 array 型的欄位</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+--------------------+------------------+-----+------+
+|                name|         languages|state|gender|
++--------------------+------------------+-----+------+
+|    {James, , Smith}|[Java, Scala, C++]|   OH|     M|
+|      {Anna, Rose, }|[Spark, Java, C++]|   NY|     F|
+| {Julia, , Williams}|      [CSharp, VB]|   OH|     F|
+|{Maria, Anne, Jones}|      [CSharp, VB]|   NY|     M|
+|  {Jen, Mary, Brown}|      [CSharp, VB]|   NY|     M|
+|{Mike, Mary, Will...|      [Python, VB]|   OH|     M|
++--------------------+------------------+-----+------+
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>那我如果想篩出， languages 有出現 Java 的列，我可以這樣做</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">array_contains</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">languages</span><span class="p">,</span> <span class="s2">&quot;Java&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------------+------------------+-----+------+
+|name            |languages         |state|gender|
++----------------+------------------+-----+------+
+|{James, , Smith}|[Java, Scala, C++]|OH   |M     |
+|{Anna, Rose, }  |[Spark, Java, C++]|NY   |F     |
++----------------+------------------+-----+------+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="nested-struct-column">
+<h2><span class="section-number">3.7. </span>篩選 nested struct column<a class="headerlink" href="#nested-struct-column" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>如果想篩選 nested column，可以一路指到他。例如剛剛 df 的結構：</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root
+ |-- name: struct (nullable = true)
+ |    |-- firstname: string (nullable = true)
+ |    |-- middlename: string (nullable = true)
+ |    |-- lastname: string (nullable = true)
+ |-- languages: array (nullable = true)
+ |    |-- element: string (containsNull = true)
+ |-- state: string (nullable = true)
+ |-- gender: string (nullable = true)
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>我如果想篩出，lastname為 Williams 的列，我就這樣做就好</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">lastname</span> <span class="o">==</span> <span class="s2">&quot;Williams&quot;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------------------+------------+-----+------+
+|name                  |languages   |state|gender|
++----------------------+------------+-----+------+
+|{Julia, , Williams}   |[CSharp, VB]|OH   |F     |
+|{Mike, Mary, Williams}|[Python, VB]|OH   |M     |
++----------------------+------------+-----+------+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./sparkbyexamples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="2_withColumn.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">2. </span>withColumn</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="4_orderBy_sort.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>orderBy() and sort()</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Hank<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
