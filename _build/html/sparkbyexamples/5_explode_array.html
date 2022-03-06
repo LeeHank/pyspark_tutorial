@@ -1,0 +1,673 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5. explode array and map columns to rows &#8212; Pyspark tutorial</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. DataFrame details" href="../cleaning_data/dataframe_details.html" />
+    <link rel="prev" title="4. orderBy() and sort()" href="4_orderBy_sort.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Pyspark tutorial</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to your Jupyter Book
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  sparkbyexamples
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_rename_column.html">
+   1. Rename Column
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_withColumn.html">
+   2. withColumn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_filter.html">
+   3. filter
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_orderBy_sort.html">
+   4. orderBy() and sort()
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   5. explode array and map columns to rows
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  cleaning_data
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../cleaning_data/dataframe_details.html">
+   6. DataFrame details
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/sparkbyexamples/5_explode_array.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fsparkbyexamples/5_explode_array.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/sparkbyexamples/5_explode_array.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#explode-array-column">
+   5.1. 用 explode() 把 array column 給攤平
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#explode-dictionary-column-key-value">
+   5.2. 用 explode() 把 dictionary column 給攤平成 key, value
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#explode-outer-null">
+   5.3. 用 explode_outer() 把 null 和 空格都保留下來
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#poseexplode-position">
+   5.4. 用 poseexplode() 把原本的 position 也存出來
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#posexplode-outer-null">
+   5.5. 用 posexplode_outer() 把 null 和空白都留下來
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>explode array and map columns to rows</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#explode-array-column">
+   5.1. 用 explode() 把 array column 給攤平
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#explode-dictionary-column-key-value">
+   5.2. 用 explode() 把 dictionary column 給攤平成 key, value
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#explode-outer-null">
+   5.3. 用 explode_outer() 把 null 和 空格都保留下來
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#poseexplode-position">
+   5.4. 用 poseexplode() 把原本的 position 也存出來
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#posexplode-outer-null">
+   5.5. 用 posexplode_outer() 把 null 和空白都留下來
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="explode-array-and-map-columns-to-rows">
+<h1><span class="section-number">5. </span>explode array and map columns to rows<a class="headerlink" href="#explode-array-and-map-columns-to-rows" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p>有些表格，是 array or list column，</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyspark</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="kn">import</span> <span class="nn">pyspark.sql.functions</span> <span class="k">as</span> <span class="nn">F</span>
+
+<span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">appName</span><span class="p">(</span><span class="s1">&#39;pyspark-by-examples&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+
+<span class="n">arrayData</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;James&#39;</span><span class="p">,[</span><span class="s1">&#39;Java&#39;</span><span class="p">,</span><span class="s1">&#39;Scala&#39;</span><span class="p">],{</span><span class="s1">&#39;hair&#39;</span><span class="p">:</span><span class="s1">&#39;black&#39;</span><span class="p">,</span><span class="s1">&#39;eye&#39;</span><span class="p">:</span><span class="s1">&#39;brown&#39;</span><span class="p">}),</span>
+        <span class="p">(</span><span class="s1">&#39;Michael&#39;</span><span class="p">,[</span><span class="s1">&#39;Spark&#39;</span><span class="p">,</span><span class="s1">&#39;Java&#39;</span><span class="p">,</span><span class="kc">None</span><span class="p">],{</span><span class="s1">&#39;hair&#39;</span><span class="p">:</span><span class="s1">&#39;brown&#39;</span><span class="p">,</span><span class="s1">&#39;eye&#39;</span><span class="p">:</span><span class="kc">None</span><span class="p">}),</span>
+        <span class="p">(</span><span class="s1">&#39;Robert&#39;</span><span class="p">,[</span><span class="s1">&#39;CSharp&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">],{</span><span class="s1">&#39;hair&#39;</span><span class="p">:</span><span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;eye&#39;</span><span class="p">:</span><span class="s1">&#39;&#39;</span><span class="p">}),</span>
+        <span class="p">(</span><span class="s1">&#39;Washington&#39;</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;Jefferson&#39;</span><span class="p">,[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span><span class="s1">&#39;2&#39;</span><span class="p">],{})]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">createDataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">arrayData</span><span class="p">,</span> <span class="n">schema</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="s1">&#39;knownLanguages&#39;</span><span class="p">,</span><span class="s1">&#39;properties&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root
+ |-- name: string (nullable = true)
+ |-- knownLanguages: array (nullable = true)
+ |    |-- element: string (containsNull = true)
+ |-- properties: map (nullable = true)
+ |    |-- key: string
+ |    |-- value: string (valueContainsNull = true)
+
++----------+-------------------+-----------------------------+
+|name      |knownLanguages     |properties                   |
++----------+-------------------+-----------------------------+
+|James     |[Java, Scala]      |{eye -&gt; brown, hair -&gt; black}|
+|Michael   |[Spark, Java, null]|{eye -&gt; null, hair -&gt; brown} |
+|Robert    |[CSharp, ]         |{eye -&gt; , hair -&gt; red}       |
+|Washington|null               |null                         |
+|Jefferson |[1, 2]             |{}                           |
++----------+-------------------+-----------------------------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="explode-array-column">
+<h2><span class="section-number">5.1. </span>用 explode() 把 array column 給攤平<a class="headerlink" href="#explode-array-column" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">explode</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">knownLanguages</span><span class="p">))</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root
+ |-- name: string (nullable = true)
+ |-- col: string (nullable = true)
+
++---------+------+
+|     name|   col|
++---------+------+
+|    James|  Java|
+|    James| Scala|
+|  Michael| Spark|
+|  Michael|  Java|
+|  Michael|  null|
+|   Robert|CSharp|
+|   Robert|      |
+|Jefferson|     1|
+|Jefferson|     2|
++---------+------+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="explode-dictionary-column-key-value">
+<h2><span class="section-number">5.2. </span>用 explode() 把 dictionary column 給攤平成 key, value<a class="headerlink" href="#explode-dictionary-column-key-value" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">explode</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">properties</span><span class="p">))</span>
+<span class="n">df3</span><span class="o">.</span><span class="n">printSchema</span><span class="p">()</span>
+<span class="n">df3</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>root
+ |-- name: string (nullable = true)
+ |-- key: string (nullable = false)
+ |-- value: string (nullable = true)
+
++-------+----+-----+
+|   name| key|value|
++-------+----+-----+
+|  James| eye|brown|
+|  James|hair|black|
+|Michael| eye| null|
+|Michael|hair|brown|
+| Robert| eye|     |
+| Robert|hair|  red|
++-------+----+-----+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="explode-outer-null">
+<h2><span class="section-number">5.3. </span>用 explode_outer() 把 null 和 空格都保留下來<a class="headerlink" href="#explode-outer-null" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">F</span><span class="o">.</span><span class="n">explode_outer</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">knownLanguages</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+------+
+|      name|   col|
++----------+------+
+|     James|  Java|
+|     James| Scala|
+|   Michael| Spark|
+|   Michael|  Java|
+|   Michael|  null|
+|    Robert|CSharp|
+|    Robert|      |
+|Washington|  null|
+| Jefferson|     1|
+| Jefferson|     2|
++----------+------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">explode_outer</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">properties</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+----+-----+
+|      name| key|value|
++----------+----+-----+
+|     James| eye|brown|
+|     James|hair|black|
+|   Michael| eye| null|
+|   Michael|hair|brown|
+|    Robert| eye|     |
+|    Robert|hair|  red|
+|Washington|null| null|
+| Jefferson|null| null|
++----------+----+-----+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="poseexplode-position">
+<h2><span class="section-number">5.4. </span>用 poseexplode() 把原本的 position 也存出來<a class="headerlink" href="#poseexplode-position" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">F</span><span class="o">.</span><span class="n">posexplode</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">knownLanguages</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+---------+---+------+
+|     name|pos|   col|
++---------+---+------+
+|    James|  0|  Java|
+|    James|  1| Scala|
+|  Michael|  0| Spark|
+|  Michael|  1|  Java|
+|  Michael|  2|  null|
+|   Robert|  0|CSharp|
+|   Robert|  1|      |
+|Jefferson|  0|     1|
+|Jefferson|  1|     2|
++---------+---+------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">posexplode</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">properties</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------+---+----+-----+
+|   name|pos| key|value|
++-------+---+----+-----+
+|  James|  0| eye|brown|
+|  James|  1|hair|black|
+|Michael|  0| eye| null|
+|Michael|  1|hair|brown|
+| Robert|  0| eye|     |
+| Robert|  1|hair|  red|
++-------+---+----+-----+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="posexplode-outer-null">
+<h2><span class="section-number">5.5. </span>用 posexplode_outer() 把 null 和空白都留下來<a class="headerlink" href="#posexplode-outer-null" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>原本的資料，在 <code class="docutils literal notranslate"><span class="pre">knownLanguages</span></code> 的第四列，是 null，所以如果你下 <code class="docutils literal notranslate"><span class="pre">poseexplode()</span></code> 時，他根本也無法存第四列的 position，他就會濾掉</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">truncate</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+-------------------+-----------------------------+
+|name      |knownLanguages     |properties                   |
++----------+-------------------+-----------------------------+
+|James     |[Java, Scala]      |{eye -&gt; brown, hair -&gt; black}|
+|Michael   |[Spark, Java, null]|{eye -&gt; null, hair -&gt; brown} |
+|Robert    |[CSharp, ]         |{eye -&gt; , hair -&gt; red}       |
+|Washington|null               |null                         |
+|Jefferson |[1, 2]             |{}                           |
++----------+-------------------+-----------------------------+
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>那現在改用 <code class="docutils literal notranslate"><span class="pre">posexplode_outer()</span></code>，就可以保留這列：</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">posexplode_outer</span><span class="p">(</span><span class="s2">&quot;knownLanguages&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+----+------+
+|      name| pos|   col|
++----------+----+------+
+|     James|   0|  Java|
+|     James|   1| Scala|
+|   Michael|   0| Spark|
+|   Michael|   1|  Java|
+|   Michael|   2|  null|
+|    Robert|   0|CSharp|
+|    Robert|   1|      |
+|Washington|null|  null|
+| Jefferson|   0|     1|
+| Jefferson|   1|     2|
++----------+----+------+
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>同理，用在 dictionary 欄位也一樣：</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">posexplode_outer</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">properties</span><span class="p">))</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+----+----+-----+
+|      name| pos| key|value|
++----------+----+----+-----+
+|     James|   0| eye|brown|
+|     James|   1|hair|black|
+|   Michael|   0| eye| null|
+|   Michael|   1|hair|brown|
+|    Robert|   0| eye|     |
+|    Robert|   1|hair|  red|
+|Washington|null|null| null|
+| Jefferson|null|null| null|
++----------+----+----+-----+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./sparkbyexamples"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="4_orderBy_sort.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">4. </span>orderBy() and sort()</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../cleaning_data/dataframe_details.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>DataFrame details</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Hank<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

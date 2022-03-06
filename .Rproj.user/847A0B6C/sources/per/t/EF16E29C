@@ -1,0 +1,26 @@
+{
+    "id": "EF16E29C",
+    "path": "~/codepool_python/pyspark/Introduction to PySpark.Rmd",
+    "project_path": "Introduction to PySpark.Rmd",
+    "type": "r_markdown",
+    "hash": "2185943973",
+    "contents": "",
+    "dirty": false,
+    "created": 1600962392449.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "tempName": "Untitled1",
+        "cursorPosition": "20,0",
+        "scrollLine": "13",
+        "docOutlineVisible": "1"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1601195519,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1601195519942,
+    "read_only": false,
+    "read_only_alternatives": []
+}

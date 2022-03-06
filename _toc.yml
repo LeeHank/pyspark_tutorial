@@ -1,0 +1,22 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: intro
+parts:
+  - caption: sparkbyexamples
+    numbered: true
+    chapters:
+    - file: sparkbyexamples/1_rename_column
+    - file: sparkbyexamples/2_withColumn
+    - file: sparkbyexamples/3_filter
+    - file: sparkbyexamples/4_orderBy_sort
+    - file: sparkbyexamples/5_explode_array
+    - file: sparkbyexamples/6_explode_nested_array
+    - file: sparkbyexamples/8_groupBy
+    - file: sparkbyexamples/9_join
+  - caption: cleaning_data
+    numbered: true
+    chapters:
+    - file: cleaning_data/dataframe_details
+    

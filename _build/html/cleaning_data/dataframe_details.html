@@ -1,0 +1,1048 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>9. DataFrame details &#8212; Pyspark tutorial</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="8. Join Two DataFrames" href="../sparkbyexamples/9_join.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Pyspark tutorial</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to your Jupyter Book
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  sparkbyexamples
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sparkbyexamples/1_rename_column.html">
+   1. Rename Column
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sparkbyexamples/2_withColumn.html">
+   2. withColumn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sparkbyexamples/3_filter.html">
+   3. filter
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sparkbyexamples/4_orderBy_sort.html">
+   4. orderBy() and sort()
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sparkbyexamples/5_explode_array.html">
+   5. explode array and map columns to rows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sparkbyexamples/6_explode_nested_array.html">
+   6. explode nested array into rows
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sparkbyexamples/8_groupBy.html">
+   7. groupBy()
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sparkbyexamples/9_join.html">
+   8. Join Two DataFrames
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  cleaning_data
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   9. DataFrame details
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/cleaning_data/dataframe_details.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcleaning_data/dataframe_details.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/cleaning_data/dataframe_details.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   9. DataFrame details
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#intro-to-data-cleaning-with-apache-spark">
+     9.1. Intro to data cleaning with Apache Spark
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-lazy-processing">
+     9.2. Using lazy processing
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#understanding-parquet">
+     9.3. Understanding Parquet
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tempview-sql">
+     9.4. 將資料註冊到 TempView 後，可直接用 sql 指令
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#querys">
+   10. Querys
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional">
+     10.1. conditional
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>DataFrame details</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   9. DataFrame details
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#intro-to-data-cleaning-with-apache-spark">
+     9.1. Intro to data cleaning with Apache Spark
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-lazy-processing">
+     9.2. Using lazy processing
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#understanding-parquet">
+     9.3. Understanding Parquet
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tempview-sql">
+     9.4. 將資料註冊到 TempView 後，可直接用 sql 指令
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#querys">
+   10. Querys
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional">
+     10.1. conditional
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="dataframe-details">
+<h1><span class="section-number">9. </span>DataFrame details<a class="headerlink" href="#dataframe-details" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">SparkSession</span>
+<span class="kn">from</span> <span class="nn">pyspark.sql</span> <span class="kn">import</span> <span class="n">functions</span> <span class="k">as</span> <span class="n">F</span>
+
+<span class="n">spark</span> <span class="o">=</span> <span class="n">SparkSession</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">getOrCreate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="intro-to-data-cleaning-with-apache-spark">
+<h2><span class="section-number">9.1. </span>Intro to data cleaning with Apache Spark<a class="headerlink" href="#intro-to-data-cleaning-with-apache-spark" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>資料清理要做的事情包括：</p>
+<ul>
+<li><p>reformating and/or replacing texts</p></li>
+<li><p>reforming calculations</p></li>
+<li><p>removing garbage or incomplete data</p></li>
+</ul>
+</li>
+<li><p>Problems with typical data systems:</p>
+<ul>
+<li><p>Performance.</p></li>
+<li><p>Organizing data flow</p></li>
+</ul>
+</li>
+<li><p>Spark 的優勢.</p>
+<ul>
+<li><p>Scalable.</p></li>
+<li><p>Powerful framework for data handling.</p></li>
+</ul>
+</li>
+<li><p>Spark Schemas.</p>
+<ul>
+<li><p>可用來定義 DataFrame 的 format(i.e. 各個欄位的資料類型: Strings, dates, integers, arrays.)</p></li>
+<li><p>可以在 import 階段，就濾掉 garbage data</p></li>
+<li><p>可以增加讀檔效率</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyspark.sql.types</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">peopleSchema</span> <span class="o">=</span> <span class="n">StructType</span><span class="p">([</span>
+    <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="n">IntegerType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>
+    <span class="n">StructField</span><span class="p">(</span><span class="s1">&#39;city&#39;</span><span class="p">,</span> <span class="n">StringType</span><span class="p">(),</span> <span class="kc">True</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">people_df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;csv&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;rawdata.csv&quot;</span><span class="p">,</span> <span class="n">schema</span> <span class="o">=</span> <span class="n">peopleSchema</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="using-lazy-processing">
+<h2><span class="section-number">9.2. </span>Using lazy processing<a class="headerlink" href="#using-lazy-processing" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aa_dfw_df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;csv&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">Header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/AA_DFW_2017_Departures_Short.csv.gz&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">aa_dfw_df</span> <span class="o">=</span> <span class="n">aa_dfw_df</span> \
+    <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;airport&#39;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">lower</span><span class="p">(</span><span class="s1">&#39;Destination Airport&#39;</span><span class="p">))</span> \
+    <span class="o">.</span><span class="n">withColumnRenamed</span><span class="p">(</span><span class="s1">&#39;Date (MM/DD/YYYY)&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">withColumnRenamed</span><span class="p">(</span><span class="s1">&#39;Flight Number&#39;</span><span class="p">,</span> <span class="s1">&#39;flight_number&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">withColumnRenamed</span><span class="p">(</span><span class="s1">&#39;Actual elapsed time (Minutes)&#39;</span><span class="p">,</span> <span class="s1">&#39;actual_elapsed_time&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;Destination Airport&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 2.25 ms, sys: 1.39 ms, total: 3.65 ms
+Wall time: 18 ms
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+<span class="n">aa_dfw_df</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+-------------+-------------------+-------+
+|      date|flight_number|actual_elapsed_time|airport|
++----------+-------------+-------------------+-------+
+|01/01/2017|         0005|                537|    hnl|
+|01/01/2017|         0007|                498|    ogg|
+|01/01/2017|         0037|                241|    sfo|
+|01/01/2017|         0043|                134|    dtw|
+|01/01/2017|         0051|                 88|    stl|
+|01/01/2017|         0060|                149|    mia|
+|01/01/2017|         0071|                203|    lax|
+|01/01/2017|         0074|                 76|    mem|
+|01/01/2017|         0081|                123|    den|
+|01/01/2017|         0089|                161|    slc|
+|01/01/2017|         0096|                 84|    stl|
+|01/01/2017|         0103|                216|    sjc|
+|01/01/2017|         0119|                514|    ogg|
+|01/01/2017|         0123|                529|    hnl|
+|01/01/2017|         0126|                171|    lga|
+|01/01/2017|         0132|                188|    ewr|
+|01/01/2017|         0140|                231|    sjc|
+|01/01/2017|         0174|                145|    rdu|
+|01/01/2017|         0176|                184|    bos|
+|01/01/2017|         0190|                 76|    sat|
++----------+-------------+-------------------+-------+
+only showing top 20 rows
+
+CPU times: user 1.45 ms, sys: 1.82 ms, total: 3.27 ms
+Wall time: 65.2 ms
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>可以注意到，前面在做 transformation 的每個步驟時，處理時間都超短(因為他只記錄你的recipe，沒有真的執行).</p></li>
+<li><p>直到 show data 時，他才一次執行</p></li>
+</ul>
+</div>
+<div class="section" id="understanding-parquet">
+<h2><span class="section-number">9.3. </span>Understanding Parquet<a class="headerlink" href="#understanding-parquet" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>當我們剛開始接觸 spark 的時候，常常都是先從 csv, json 這種格式來讀資料。這些格式可以彈性支援不同類型的資料，但對 spark 來說，並不是最好的格式。</p></li>
+<li><p>舉例來說，CSV file 具有以下缺點.</p>
+<ul>
+<li><p>沒有幫我們定義 schema.</p></li>
+<li><p>如果是 nested data，需要特殊處理.</p></li>
+<li><p>encoding format limited</p></li>
+</ul>
+</li>
+<li><p>以至於用 spark 去讀 csv 時，會出現：</p>
+<ul>
+<li><p>slow to parse.</p></li>
+<li><p>沒辦法讀取部分資料就好 (無法在讀取時做filter，專業術語叫 no “predicate pushdown”)</p></li>
+</ul>
+</li>
+<li><p>Parquet format.</p>
+<ul>
+<li><p>是一種 columnar data format, Spark和其他 data processing frameworks都有支援這種格式</p></li>
+<li><p>有自動存取 schema information</p></li>
+<li><p>supports predicate pushdown (不用讀完一整張資料).</p></li>
+</ul>
+</li>
+<li><p>讀檔和寫檔的範例如下</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># read</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;parquet&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;filename.parquet&quot;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;filename.parquet&quot;</span><span class="p">)</span>
+
+<span class="c1"># write</span>
+<span class="n">df</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;parquet&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;filename.parquet&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;filename.parquet&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>我們這邊來練習，先把剛剛已讀進來的資料寫出成 parquet 檔，再讀進來</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aa_dfw_df</span><span class="o">.</span><span class="n">write</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;data/aa_dfw_all.parquet&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aa_dfw_df_from_parquet</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">parquet</span><span class="p">(</span><span class="s2">&quot;data/aa_dfw_all.parquet&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">aa_dfw_df_from_parquet</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>139358
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="tempview-sql">
+<h2><span class="section-number">9.4. </span>將資料註冊到 TempView 後，可直接用 sql 指令<a class="headerlink" href="#tempview-sql" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 將 spark DataFrame 註冊到 TempView 裡面</span>
+<span class="n">aa_dfw_df_from_parquet</span><span class="o">.</span><span class="n">createOrReplaceTempView</span><span class="p">(</span><span class="s1">&#39;aa_dfw_view&#39;</span><span class="p">)</span> <span class="c1"># 註冊的名字自己取</span>
+
+<span class="c1"># 可以下 sql 語法了</span>
+<span class="n">query_res</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">sql</span><span class="p">(</span><span class="s1">&#39;SELECT avg(actual_elapsed_time) from aa_dfw_view&#39;</span><span class="p">)</span>
+<span class="n">query_res</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+------------------------+
+|avg(actual_elapsed_time)|
++------------------------+
+|      151.99931112673832|
++------------------------+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="querys">
+<h1><span class="section-number">10. </span>Querys<a class="headerlink" href="#querys" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># select</span>
+<span class="n">voters</span> <span class="o">=</span> <span class="n">voter_df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;position&#39;</span><span class="p">)</span>
+<span class="n">voters</span> <span class="o">=</span> <span class="n">voter_df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">voter_df</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="c1"># 抓出 name 這個欄位</span>
+
+<span class="c1"># filter</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">voter_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">like</span><span class="p">(</span><span class="s2">&quot;M%&quot;</span><span class="p">))</span> <span class="c1"># 抓出 name 裡面有 ”M&quot; 開頭的字</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">voter_df</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isNotNull</span><span class="p">())</span> <span class="c1"># 抓出 name 裡面不是 null 的值</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">voter_df</span><span class="o">.</span><span class="n">_c1</span><span class="o">.</span><span class="n">isNull</span><span class="p">())</span> <span class="c1"># 抓出 _c1 裡面不是 null 的值 (~ 就是 R 的 !)</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">voter_df</span><span class="o">.</span><span class="n">date</span> <span class="o">&gt;</span> <span class="s1">&#39;1/1/2019&#39;</span><span class="p">)</span> <span class="c1"># 抓出 date 裡面大於 &#39;1/1/2019&#39; 的值</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">voter_df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">year</span> <span class="o">&gt;</span> <span class="mi">1800</span><span class="p">)</span>
+
+
+<span class="c1"># mutate (i.e. withColumn)</span>
+<span class="kn">import</span> <span class="nn">pyspark.sql.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">voter_df</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span> <span class="c1"># 新增 year 這個欄位，內容就是 voter_df.date.year</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;name_upper_case&#39;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">upper</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;splits&#39;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">))</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">voter_df</span><span class="p">[</span><span class="s1">&#39;_c4&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">IntegerType</span><span class="p">()))</span>
+
+<span class="c1"># drop</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;unused_column&#39;</span><span class="p">)</span> <span class="c1"># 刪掉 &quot;unused_column&quot;. </span>
+
+<span class="c1"># distinct</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">voter_df</span><span class="p">[</span><span class="s1">&#39;VOTER_NAME&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">voter_df</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">read</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;csv&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">Header</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;data/DallasCouncilVoters.csv.gz&#39;</span><span class="p">)</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+----------+-------------+-------------------+
+|      DATE|        TITLE|         VOTER_NAME|
++----------+-------------+-------------------+
+|02/08/2017|Councilmember|  Jennifer S. Gates|
+|02/08/2017|Councilmember| Philip T. Kingston|
+|02/08/2017|        Mayor|Michael S. Rawlings|
+|02/08/2017|Councilmember|       Adam Medrano|
+|02/08/2017|Councilmember|       Casey Thomas|
+|02/08/2017|Councilmember|Carolyn King Arnold|
+|02/08/2017|Councilmember|       Scott Griggs|
+|02/08/2017|Councilmember|   B. Adam  McGough|
+|02/08/2017|Councilmember|       Lee Kleinman|
+|02/08/2017|Councilmember|      Sandy Greyson|
+|02/08/2017|Councilmember|  Jennifer S. Gates|
+|02/08/2017|Councilmember| Philip T. Kingston|
+|02/08/2017|        Mayor|Michael S. Rawlings|
+|02/08/2017|Councilmember|       Adam Medrano|
+|02/08/2017|Councilmember|       Casey Thomas|
+|02/08/2017|Councilmember|Carolyn King Arnold|
+|02/08/2017|Councilmember| Rickey D. Callahan|
+|01/11/2017|Councilmember|  Jennifer S. Gates|
+|04/25/2018|Councilmember|     Sandy  Greyson|
+|04/25/2018|Councilmember| Jennifer S.  Gates|
++----------+-------------+-------------------+
+only showing top 20 rows
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 找出 distinct 的 VOTER_NAME</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">voter_df</span><span class="p">[</span><span class="s1">&#39;VOTER_NAME&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|VOTER_NAME                                                                                                                                                                                                                                                                                                                                                                                                                 |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|Tennell Atkins                                                                                                                                                                                                                                                                                                                                                                                                             |
+|  the  final   2018 Assessment Plan and the 2018 Assessment  Roll  (to  be  kept  on  file  with  the  City  Secretary);  establishing  classifications  for   the   apportionment   of   costs and the methods of assessing special assessments for the services and improvements to property in the District;  closing  the  hearing  and  levying  a  special  assessment  on  property  in  the  District              |
+|Scott Griggs                                                                                                                                                                                                                                                                                                                                                                                                               |
+|Scott  Griggs                                                                                                                                                                                                                                                                                                                                                                                                              |
+|Sandy Greyson                                                                                                                                                                                                                                                                                                                                                                                                              |
+|Michael S. Rawlings                                                                                                                                                                                                                                                                                                                                                                                                        |
+| the final 2018 Assessment Plan and the 2018 Assessment  Roll  (to  be  kept  on  file  with  the  City  Secretary);  establishing  classifications  for  the   apportionment   of   costs and  the  methods  of  assessing  special  assessments  on  Dallas  hotels  with    100 or more rooms                                                                                                                           |
+|Kevin Felder                                                                                                                                                                                                                                                                                                                                                                                                               |
+|Adam Medrano                                                                                                                                                                                                                                                                                                                                                                                                               |
+|Casey  Thomas                                                                                                                                                                                                                                                                                                                                                                                                              |
+|null                                                                                                                                                                                                                                                                                                                                                                                                                       |
+|   the   final  2018 Assessment  Plan  and  the  2018 Assessment  Roll  (to  be  kept  on  file   with the City Secretary); establishing classifications  for  the  apportionment  of  costs  and  the  methods  of  assessing  special  assessments  for  the  services  and  improvements  to  property  in  the  District;  closing  the  hearing  and  levying  a special  assessment  on  property  in  the  District |
+|011018__42                                                                                                                                                                                                                                                                                                                                                                                                                 |
+|Mark  Clayton                                                                                                                                                                                                                                                                                                                                                                                                              |
+|Casey Thomas                                                                                                                                                                                                                                                                                                                                                                                                               |
+|Sandy  Greyson                                                                                                                                                                                                                                                                                                                                                                                                             |
+|Mark Clayton                                                                                                                                                                                                                                                                                                                                                                                                               |
+|Jennifer S.  Gates                                                                                                                                                                                                                                                                                                                                                                                                         |
+|Tiffinni A. Young                                                                                                                                                                                                                                                                                                                                                                                                          |
+|  the  final  2018 Assessment  Plan   and   the   2018 Assessment   Roll  (to  be  kept  on  file  with  the  City  Secretary);  establishing   classifications  for the apportionment of costs and the  methods  of  assessing  special  assessments for the services and improvements  to  property  in  the  District;  closing the hearing and  levying  a  special  assessment  on  property  in  the  District       |
+|B. Adam  McGough                                                                                                                                                                                                                                                                                                                                                                                                           |
+|Omar Narvaez                                                                                                                                                                                                                                                                                                                                                                                                               |
+|Philip T. Kingston                                                                                                                                                                                                                                                                                                                                                                                                         |
+|Rickey D. Callahan                                                                                                                                                                                                                                                                                                                                                                                                         |
+|Dwaine R. Caraway                                                                                                                                                                                                                                                                                                                                                                                                          |
+|Philip T.  Kingston                                                                                                                                                                                                                                                                                                                                                                                                        |
+|Jennifer S. Gates                                                                                                                                                                                                                                                                                                                                                                                                          |
+|Lee M. Kleinman                                                                                                                                                                                                                                                                                                                                                                                                            |
+|Monica R. Alonzo                                                                                                                                                                                                                                                                                                                                                                                                           |
+|   the   final  2018 Assessment  Plan  and  the  2018 Assessment  Roll   (to  be  kept  on  file   with the City Secretary); establishing classifications  for  the  apportionment  of  costs  and  the  methods  of  assessing  special  assessments  for  the  services  and  improvements  to  property  in  the  District;  closing  the  hearing  and  levying  a special  assessment  on  property  in  the  District|
+|Rickey D.  Callahan                                                                                                                                                                                                                                                                                                                                                                                                        |
+|Carolyn King Arnold                                                                                                                                                                                                                                                                                                                                                                                                        |
+|  the  final   2018 Assessment Plan and the 2018 Assessment  Roll  (to  be  kept  on  file  with  the  City  Secretary);  establishing  classifications  for  the   apportionment   of   costs and the methods of assessing special assessments for the services and improvements to property in the District;  closing  the  hearing  and  levying  a  special  assessment  on  property  in  the  District               |
+|Erik Wilson                                                                                                                                                                                                                                                                                                                                                                                                                |
+|  the  final  2018 Assessment Plan and the 2018 Assessment  Roll  (to  be  kept  on  file  with  the  City  Secretary);  establishing  classifications  for  the   apportionment   of   costs and the methods of assessing special assessments for the services and improvements to property in the District; closing  the  hearing  and  levying  a  special  assessment  on  property  in  the  District                 |
+|Lee Kleinman                                                                                                                                                                                                                                                                                                                                                                                                               |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter voter_df where the VOTER_NAME is 1-20 characters in length</span>
+<span class="n">voter_df</span> <span class="o">=</span> <span class="n">voter_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="s1">&#39;length(VOTER_NAME) &gt; 0 and length(VOTER_NAME) &lt; 20&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Filter out voter_df where the VOTER_NAME contains an underscore</span>
+<span class="n">voter_df</span> <span class="o">=</span> <span class="n">voter_df</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">~</span> <span class="n">F</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="s1">&#39;VOTER_NAME&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Show the distinct VOTER_NAME entries again</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;VOTER_NAME&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------------------+
+|VOTER_NAME         |
++-------------------+
+|Tennell Atkins     |
+|Scott Griggs       |
+|Scott  Griggs      |
+|Sandy Greyson      |
+|Michael S. Rawlings|
+|Kevin Felder       |
+|Adam Medrano       |
+|Casey  Thomas      |
+|Mark  Clayton      |
+|Casey Thomas       |
+|Sandy  Greyson     |
+|Mark Clayton       |
+|Jennifer S.  Gates |
+|Tiffinni A. Young  |
+|B. Adam  McGough   |
+|Omar Narvaez       |
+|Philip T. Kingston |
+|Rickey D. Callahan |
+|Dwaine R. Caraway  |
+|Philip T.  Kingston|
+|Jennifer S. Gates  |
+|Lee M. Kleinman    |
+|Monica R. Alonzo   |
+|Rickey D.  Callahan|
+|Carolyn King Arnold|
+|Erik Wilson        |
+|Lee Kleinman       |
++-------------------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 把 voter_name 依照空白切開 ( \s+ 是正規表達式，表 Space or multiple space)</span>
+<span class="n">voter_df</span> <span class="o">=</span> <span class="n">voter_df</span> \
+    <span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;VOTER_NAME&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">distinct</span><span class="p">()</span> \
+    <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;splits&quot;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">voter_df</span><span class="o">.</span><span class="n">VOTER_NAME</span><span class="p">,</span> <span class="s1">&#39;\s+&#39;</span><span class="p">))</span>
+
+<span class="n">voter_df</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="n">truncate</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------------------+-----------------------+
+|VOTER_NAME         |splits                 |
++-------------------+-----------------------+
+|Tennell Atkins     |[Tennell, Atkins]      |
+|Scott Griggs       |[Scott, Griggs]        |
+|Scott  Griggs      |[Scott, Griggs]        |
+|Sandy Greyson      |[Sandy, Greyson]       |
+|Michael S. Rawlings|[Michael, S., Rawlings]|
+|Kevin Felder       |[Kevin, Felder]        |
+|Adam Medrano       |[Adam, Medrano]        |
+|Casey  Thomas      |[Casey, Thomas]        |
+|Mark  Clayton      |[Mark, Clayton]        |
+|Casey Thomas       |[Casey, Thomas]        |
+|Sandy  Greyson     |[Sandy, Greyson]       |
+|Mark Clayton       |[Mark, Clayton]        |
+|Jennifer S.  Gates |[Jennifer, S., Gates]  |
+|Tiffinni A. Young  |[Tiffinni, A., Young]  |
+|B. Adam  McGough   |[B., Adam, McGough]    |
+|Omar Narvaez       |[Omar, Narvaez]        |
+|Philip T. Kingston |[Philip, T., Kingston] |
+|Rickey D. Callahan |[Rickey, D., Callahan] |
+|Dwaine R. Caraway  |[Dwaine, R., Caraway]  |
+|Philip T.  Kingston|[Philip, T., Kingston] |
+|Jennifer S. Gates  |[Jennifer, S., Gates]  |
+|Lee M. Kleinman    |[Lee, M., Kleinman]    |
+|Monica R. Alonzo   |[Monica, R., Alonzo]   |
+|Rickey D.  Callahan|[Rickey, D., Callahan] |
+|Carolyn King Arnold|[Carolyn, King, Arnold]|
+|Erik Wilson        |[Erik, Wilson]         |
+|Lee Kleinman       |[Lee, Kleinman]        |
++-------------------+-----------------------+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># splits欄位的第一個element當 first_name, 最後一個 element 當 last_name</span>
+<span class="n">voter_df</span> <span class="o">=</span> <span class="n">voter_df</span> \
+    <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;first_name&quot;</span><span class="p">,</span> <span class="n">voter_df</span><span class="o">.</span><span class="n">splits</span><span class="o">.</span><span class="n">getItem</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> \
+    <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s2">&quot;last_name&quot;</span><span class="p">,</span> <span class="n">voter_df</span><span class="o">.</span><span class="n">splits</span><span class="o">.</span><span class="n">getItem</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="n">voter_df</span><span class="o">.</span><span class="n">splits</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">voter_df</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------------------+--------------------+----------+---------+
+|         VOTER_NAME|              splits|first_name|last_name|
++-------------------+--------------------+----------+---------+
+|     Tennell Atkins|   [Tennell, Atkins]|   Tennell|   Atkins|
+|       Scott Griggs|     [Scott, Griggs]|     Scott|   Griggs|
+|      Scott  Griggs|     [Scott, Griggs]|     Scott|   Griggs|
+|      Sandy Greyson|    [Sandy, Greyson]|     Sandy|  Greyson|
+|Michael S. Rawlings|[Michael, S., Raw...|   Michael| Rawlings|
+|       Kevin Felder|     [Kevin, Felder]|     Kevin|   Felder|
+|       Adam Medrano|     [Adam, Medrano]|      Adam|  Medrano|
+|      Casey  Thomas|     [Casey, Thomas]|     Casey|   Thomas|
+|      Mark  Clayton|     [Mark, Clayton]|      Mark|  Clayton|
+|       Casey Thomas|     [Casey, Thomas]|     Casey|   Thomas|
+|     Sandy  Greyson|    [Sandy, Greyson]|     Sandy|  Greyson|
+|       Mark Clayton|     [Mark, Clayton]|      Mark|  Clayton|
+| Jennifer S.  Gates|[Jennifer, S., Ga...|  Jennifer|    Gates|
+|  Tiffinni A. Young|[Tiffinni, A., Yo...|  Tiffinni|    Young|
+|   B. Adam  McGough| [B., Adam, McGough]|        B.|  McGough|
+|       Omar Narvaez|     [Omar, Narvaez]|      Omar|  Narvaez|
+| Philip T. Kingston|[Philip, T., King...|    Philip| Kingston|
+| Rickey D. Callahan|[Rickey, D., Call...|    Rickey| Callahan|
+|  Dwaine R. Caraway|[Dwaine, R., Cara...|    Dwaine|  Caraway|
+|Philip T.  Kingston|[Philip, T., King...|    Philip| Kingston|
++-------------------+--------------------+----------+---------+
+only showing top 20 rows
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="conditional">
+<h2><span class="section-number">10.1. </span>conditional<a class="headerlink" href="#conditional" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>就是 inline 版本的 if…else，但他的語法是 F.when()</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first name 是 Scott 的，我給他 100 分</span>
+<span class="n">voter_df</span> \
+    <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;random_val&#39;</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">voter_df</span><span class="o">.</span><span class="n">first_name</span> <span class="o">==</span> <span class="s1">&#39;Scott&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span> \
+    <span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------------------+--------------------+----------+---------+-------------------+
+|         VOTER_NAME|              splits|first_name|last_name|         random_val|
++-------------------+--------------------+----------+---------+-------------------+
+|     Tennell Atkins|   [Tennell, Atkins]|   Tennell|   Atkins|               null|
+|       Scott Griggs|     [Scott, Griggs]|     Scott|   Griggs| 0.8397453373623534|
+|      Scott  Griggs|     [Scott, Griggs]|     Scott|   Griggs|0.39821883502048205|
+|      Sandy Greyson|    [Sandy, Greyson]|     Sandy|  Greyson|               null|
+|Michael S. Rawlings|[Michael, S., Raw...|   Michael| Rawlings|               null|
+|       Kevin Felder|     [Kevin, Felder]|     Kevin|   Felder|               null|
+|       Adam Medrano|     [Adam, Medrano]|      Adam|  Medrano|               null|
+|      Casey  Thomas|     [Casey, Thomas]|     Casey|   Thomas|               null|
+|      Mark  Clayton|     [Mark, Clayton]|      Mark|  Clayton|               null|
+|       Casey Thomas|     [Casey, Thomas]|     Casey|   Thomas|               null|
+|     Sandy  Greyson|    [Sandy, Greyson]|     Sandy|  Greyson|               null|
+|       Mark Clayton|     [Mark, Clayton]|      Mark|  Clayton|               null|
+| Jennifer S.  Gates|[Jennifer, S., Ga...|  Jennifer|    Gates|               null|
+|  Tiffinni A. Young|[Tiffinni, A., Yo...|  Tiffinni|    Young|               null|
+|   B. Adam  McGough| [B., Adam, McGough]|        B.|  McGough|               null|
+|       Omar Narvaez|     [Omar, Narvaez]|      Omar|  Narvaez|               null|
+| Philip T. Kingston|[Philip, T., King...|    Philip| Kingston|               null|
+| Rickey D. Callahan|[Rickey, D., Call...|    Rickey| Callahan|               null|
+|  Dwaine R. Caraway|[Dwaine, R., Cara...|    Dwaine|  Caraway|               null|
+|Philip T.  Kingston|[Philip, T., King...|    Philip| Kingston|               null|
++-------------------+--------------------+----------+---------+-------------------+
+only showing top 20 rows
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># first name 是 Scott 的，我給他 100 分，last name 是 Young 的，我給他 200 分</span>
+<span class="n">voter_df</span> \
+    <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;random_val&#39;</span><span class="p">,</span> 
+                <span class="n">F</span><span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">voter_df</span><span class="o">.</span><span class="n">first_name</span> <span class="o">==</span> <span class="s1">&#39;Scott&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> \
+                <span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">voter_df</span><span class="o">.</span><span class="n">last_name</span> <span class="o">==</span> <span class="s2">&quot;Young&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span> \
+    <span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------------------+--------------------+----------+---------+----------+
+|         VOTER_NAME|              splits|first_name|last_name|random_val|
++-------------------+--------------------+----------+---------+----------+
+|     Tennell Atkins|   [Tennell, Atkins]|   Tennell|   Atkins|      null|
+|       Scott Griggs|     [Scott, Griggs]|     Scott|   Griggs|       100|
+|      Scott  Griggs|     [Scott, Griggs]|     Scott|   Griggs|       100|
+|      Sandy Greyson|    [Sandy, Greyson]|     Sandy|  Greyson|      null|
+|Michael S. Rawlings|[Michael, S., Raw...|   Michael| Rawlings|      null|
+|       Kevin Felder|     [Kevin, Felder]|     Kevin|   Felder|      null|
+|       Adam Medrano|     [Adam, Medrano]|      Adam|  Medrano|      null|
+|      Casey  Thomas|     [Casey, Thomas]|     Casey|   Thomas|      null|
+|      Mark  Clayton|     [Mark, Clayton]|      Mark|  Clayton|      null|
+|       Casey Thomas|     [Casey, Thomas]|     Casey|   Thomas|      null|
+|     Sandy  Greyson|    [Sandy, Greyson]|     Sandy|  Greyson|      null|
+|       Mark Clayton|     [Mark, Clayton]|      Mark|  Clayton|      null|
+| Jennifer S.  Gates|[Jennifer, S., Ga...|  Jennifer|    Gates|      null|
+|  Tiffinni A. Young|[Tiffinni, A., Yo...|  Tiffinni|    Young|       200|
+|   B. Adam  McGough| [B., Adam, McGough]|        B.|  McGough|      null|
+|       Omar Narvaez|     [Omar, Narvaez]|      Omar|  Narvaez|      null|
+| Philip T. Kingston|[Philip, T., King...|    Philip| Kingston|      null|
+| Rickey D. Callahan|[Rickey, D., Call...|    Rickey| Callahan|      null|
+|  Dwaine R. Caraway|[Dwaine, R., Cara...|    Dwaine|  Caraway|      null|
+|Philip T.  Kingston|[Philip, T., King...|    Philip| Kingston|      null|
++-------------------+--------------------+----------+---------+----------+
+only showing top 20 rows
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 其他的，我給他 0~1 的 random number</span>
+<span class="n">voter_df</span> \
+    <span class="o">.</span><span class="n">withColumn</span><span class="p">(</span><span class="s1">&#39;random_val&#39;</span><span class="p">,</span> 
+                <span class="n">F</span><span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">voter_df</span><span class="o">.</span><span class="n">first_name</span> <span class="o">==</span> <span class="s1">&#39;Scott&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> \
+                <span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">voter_df</span><span class="o">.</span><span class="n">last_name</span> <span class="o">==</span> <span class="s2">&quot;Young&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> \
+                <span class="o">.</span><span class="n">otherwise</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">rand</span><span class="p">()))</span> \
+    <span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>+-------------------+--------------------+----------+---------+--------------------+
+|         VOTER_NAME|              splits|first_name|last_name|          random_val|
++-------------------+--------------------+----------+---------+--------------------+
+|     Tennell Atkins|   [Tennell, Atkins]|   Tennell|   Atkins| 0.46561124067118864|
+|       Scott Griggs|     [Scott, Griggs]|     Scott|   Griggs|               100.0|
+|      Scott  Griggs|     [Scott, Griggs]|     Scott|   Griggs|               100.0|
+|      Sandy Greyson|    [Sandy, Greyson]|     Sandy|  Greyson| 0.09429919082559512|
+|Michael S. Rawlings|[Michael, S., Raw...|   Michael| Rawlings|  0.5172720122340274|
+|       Kevin Felder|     [Kevin, Felder]|     Kevin|   Felder|  0.9915181440119077|
+|       Adam Medrano|     [Adam, Medrano]|      Adam|  Medrano|  0.5239224238540311|
+|      Casey  Thomas|     [Casey, Thomas]|     Casey|   Thomas|  0.5664971283177345|
+|      Mark  Clayton|     [Mark, Clayton]|      Mark|  Clayton|0.058264465271056665|
+|       Casey Thomas|     [Casey, Thomas]|     Casey|   Thomas|  0.8673217502730166|
+|     Sandy  Greyson|    [Sandy, Greyson]|     Sandy|  Greyson| 0.23874763539881294|
+|       Mark Clayton|     [Mark, Clayton]|      Mark|  Clayton|  0.8478821154555607|
+| Jennifer S.  Gates|[Jennifer, S., Ga...|  Jennifer|    Gates| 0.09103982719280324|
+|  Tiffinni A. Young|[Tiffinni, A., Yo...|  Tiffinni|    Young|               200.0|
+|   B. Adam  McGough| [B., Adam, McGough]|        B.|  McGough| 0.20787760456001536|
+|       Omar Narvaez|     [Omar, Narvaez]|      Omar|  Narvaez|  0.8705654388560385|
+| Philip T. Kingston|[Philip, T., King...|    Philip| Kingston| 0.37478501418131427|
+| Rickey D. Callahan|[Rickey, D., Call...|    Rickey| Callahan| 0.02407038052562549|
+|  Dwaine R. Caraway|[Dwaine, R., Cara...|    Dwaine|  Caraway| 0.23336689291249124|
+|Philip T.  Kingston|[Philip, T., King...|    Philip| Kingston|  0.7845699225192583|
++-------------------+--------------------+----------+---------+--------------------+
+only showing top 20 rows
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">Age</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Age</span><span class="o">&gt;=</span><span class="mi">18</span><span class="p">,</span> <span class="s2">&quot;Adult&quot;</span><span class="p">))</span>
+<span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">Age</span><span class="p">,</span> 
+          <span class="n">F</span><span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Age</span><span class="o">&gt;=</span><span class="mi">18</span><span class="p">,</span> <span class="s2">&quot;Adult&quot;</span><span class="p">)</span>
+         <span class="n">F</span><span class="o">.</span><span class="n">when</span><span class="p">())</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">Age</span><span class="p">,</span> 
+          <span class="n">F</span><span class="o">.</span><span class="n">when</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Age</span><span class="o">&gt;=</span><span class="mi">18</span><span class="p">,</span> <span class="s2">&quot;Adult&quot;</span><span class="p">)</span>
+         <span class="n">F</span><span class="o">.</span><span class="n">otherwise</span><span class="p">(</span><span class="s2">&quot;Minor&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./cleaning_data"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../sparkbyexamples/9_join.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">8. </span>Join Two DataFrames</p>
+        </div>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Hank<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

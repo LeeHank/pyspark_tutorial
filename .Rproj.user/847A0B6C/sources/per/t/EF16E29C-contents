@@ -1,0 +1,22 @@
+---
+title: "Introduction to PySpark"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Getting to know PySpark  
+
+## What is Spark, anyway?  
+
+* Spark是用來做cluster computing的一個平台(platform)  
+* Spark可以讓我們把data分散的丟到各個cluster中的nodes(把nodes想成一台小電腦)去做計算，再把結果丟回來  
+* 所以，我們把原本超巨大的資料，切成好n塊，丟到n個nodes中幫我們計算，就可以處理掉big data的問題，因為每個node其實只要處理小小的資料就好  
+* 所以，both data processing and computation are performed in parallel over the nodes in the cluster  
+* 所以，有需要用spark的兩個條件是：  
+  * 我的資料實在大到一台電腦無法處理，要綁多台電腦一起處理才行  
+  * 我想做的運算，是可以平行化處理的，我才能把工作分散到多個電腦中一起做  
+
+
